@@ -1,0 +1,266 @@
+.fl {
+  float: left;
+}
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.flexbox {
+  display: flex;
+  justify-content: flex-start;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 圣杯布局 */
+.grail-layout {
+  /* position: relative; */
+  padding: 0 150px 0 200px;
+}
+.grail-layout .left {
+  /* 左侧元素左移 */
+  margin-left: -100%;
+  position: relative;
+  right: 200px;
+  width: 200px;
+  background-color:cornsilk;
+}
+.grail-layout .right {
+  width: 150px;
+  margin-right: -200px;
+  background-color: blanchedalmond;
+}
+.grail-layout .center {
+  width: 100%;
+  background-color: burlywood;
+}
+
+/* 双飞翼布局 */
+.double-wings-layout .center{
+  width: 100%;
+}
+
+.double-wings-layout .center-box{
+  margin: 0 150px 0 200px;
+  background-color: beige;
+}
+
+.double-wings-layout .left {
+  width: 200px;
+  background-color: antiquewhite;
+  margin-left: -100%;
+}
+
+.double-wings-layout .right {
+  width: 150px;
+  background-color: burlywood;
+  margin-left: -150px;
+}
+
+/* 三色骰子 */
+.three-dice {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #cccccc;
+
+  display: flex;
+  justify-content: space-between;
+}
+.three-dice .item {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: cadetblue;
+}
+
+.three-dice .item:nth-child(2) {
+  align-self: center;
+}
+
+.three-dice .item:nth-child(3) {
+  align-self: flex-end;
+}
+
+/* 排列组合 */
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item-list .item:nth-child(3n+2) {
+  background-color:antiquewhite;
+}
+
+/* 水平垂直居中 */
+.center-layout{
+  border: 1px solid #cccccc;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+.center-layout.center1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-layout.center2 {
+  position: relative;
+}
+
+.center-layout.center2 .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  background-color: aquamarine;
+}
+
+.center-layout.center3 {
+  text-align: center;
+  line-height: 100px;
+}
+
+.center-layout.center4 {
+  position: relative;
+}
+.center-layout.center4 .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-layout.center5 {
+  position: relative;
+}
+.center-layout.center5 .content {
+  width: 20px;
+  height: 20px;
+  background-color:tomato;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/* 三角形 */
+.triangle {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 21px;
+  border-color: black transparent transparent;
+}
+
+
+.hollow-triangle::after {
+  position: absolute;
+  top: -20px;
+  left: -18px;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 18px;
+  border-color: white transparent transparent;
+}
+
+.arrow::after {
+  position: absolute;
+  top: -21px;
+  left: -18px;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 18px;
+  border-color: white transparent transparent;
+}
+
+.arrow::before {
+  position: absolute;
+  top: -46px;
+  left: 0;
+  z-index: 3;
+  content: "";
+  display: block;
+  width: 2px;
+  height: 40px;
+  background-color: black;
+}
+
+/* 自适应九宫格 */
+.nine-square {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  flex-flow: wrap;
+}
+
+.nine-square li {
+  width: calc(98% / 3);
+  height: calc(98% / 3);
+  margin-right: 1%;
+  margin-bottom: 1%;
+  background-color: darkorchid;
+}
+
+.nine-square li:nth-child(3n) {
+  margin-right: 0;
+}
+
+.nine-square2 {
+  display: grid;
+  grid-template-columns: 30px 30px 30px;
+  grid-template-rows: 30px 30px 30px;
+}
+
+.nine-square2 li {
+  text-align: center;
+  border: 1px solid white;
+  background-color: darkorchid;
+}
+
+/* 两端固定，中间滚动 */
+.mobile-page {
+  width: 375px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cccccc;
+}
+
+.mobile-page .head {
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.mobile-page .footer {
+  height: 60px;
+  border-top: 1px solid #cccccc;
+}
+
+.mobile-page .content {
+  flex: 1;
+  overflow-y: scroll;
+}
