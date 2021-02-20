@@ -678,6 +678,8 @@ else if (oldVirtualDOM && virtualDOM.type === oldVirtualDOM.type) {
   }
 ```
 
+同级节点比对，**深度优先顺序**
+
 <img src="E:\lagou\04-01\04-01-study-materials\handouts\04-01-02-VirtualDOM\Virtual DOM 及 Diff 算法\images\7.png"/>
 
 #### 9.2 Virtual DOM 类型不同
@@ -878,7 +880,7 @@ setState(state) {
 
 在更新组件的过程中还要在不同阶段调用其不同的组件生命周期函数。
 
-在 diff 方法中判断要更新的 Virtual DOM 是否是组件，如果是组件又分为多种情况，新增 diffComponent 方法进行处理
+1. 在 diff 方法中判断要更新的 Virtual DOM 是否是组件，如果是组件又分为多种情况，新增 diffComponent 方法进行处理
 
 ```react
 else if (typeof virtualDOM.type === "function") {
@@ -891,7 +893,7 @@ else if (typeof virtualDOM.type === "function") {
 }
 ```
 
-在 diffComponent 方法中判断要更新的组件是未更新前的组件是否是同一个组件
+2. 在 diffComponent 方法中判断要更新的组件是未更新前的组件是否是同一个组件
 
 ```react
 // diffComponent.js

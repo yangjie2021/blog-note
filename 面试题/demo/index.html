@@ -6,9 +6,20 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./util.js"></script>
+  <script src="./promise.js"></script>
   <script>
-    console.log(myInstanceOf('', String))
+    let p1 = new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('成功')
+      }, 2000)
+    })
+
+    p1.then(result => {
+      console.log(result)
+      return 'aaa'
+    }).then(aaa => {
+      console.log(aaa)
+    })
   </script>
 </body>
 </html>

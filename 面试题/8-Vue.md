@@ -42,21 +42,30 @@
 
 15. vue3.0的新特性，了解 composition-api 和react hooks的区别？Vue3 究竟好在哪里？
 
-16. composition api 和 react hooks的区别是什么？
+16. Proxy和Object.defineProperty的区别？
 
-17. new Vue做了什么
+    - Proxy代理整个对象，Object.defineProperty只代理对象上的某个属性 
+    - 如果对象内部要全部递归代理，则Proxy可以只在调用时递归，而Object.defineProperty需要在一开始就全部递归，Proxy性能优于Object.defineProperty
+    - Proxy 可以**监视**读写以外的操作，比如deleteProperty方法监听删除
+    - Proxy 可以很方便的监视数组操作，因为set有target, property, value三个入参
+    - Proxy 不需要侵入对象
+    - Proxy不兼容IE，Object.defineProperty不兼容IE8及以下
 
-18. vue组件通信方法
+17. composition api 和 react hooks的区别是什么？
 
-19. vue计算属性的使用场景？
+18. new Vue做了什么
 
-20. vuex的使用场景？数据存储如何划分？
+19. vue组件通信方法
 
-21. 解释一下 Backbone 的 MVC 实现方式？
+20. vue计算属性的使用场景？
 
-22. 什么是“前端路由”?什么时候适合使用“前端路由”? “前端路由”有哪些优点和缺点?
+21. vuex的使用场景？数据存储如何划分？
 
-23. 实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+22. 解释一下 Backbone 的 MVC 实现方式？
 
-24. 简单实现一个Virtual DOM
+23. 什么是“前端路由”?什么时候适合使用“前端路由”? “前端路由”有哪些优点和缺点?
+
+24. 实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+
+25. 简单实现一个Virtual DOM
 
