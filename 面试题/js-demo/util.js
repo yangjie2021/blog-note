@@ -90,24 +90,23 @@ Function.prototype._bind = function (context, ...params) {
 /**
 * 模拟ajax请求
 */
-function ajax (method, url, successFn) {
-  const xhr = new XMLHttpRequest()
-  xhr.open(method, url, false) // false 异步请求
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) { // 请求状态码
-      if(xhr.status === 200) { // 响应状态码
-        successFn(JSON.parse(xhr.responseText))
-      } else {
-        throw Error('返回数据失败')
+function ajax (method, url, params) {
+  let promise = new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open(method, url, false) // false 异步请求
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) { // 请求状态码
+        if(xhr.status === 200) { // 响应状态码
+          resolve(
+            JSON.parse(xhr.responseText)
+          )
+        } else {
+          reject(new Error('失败'))
+        }
       }
     }
-  }
-  xhr.send(null)
+    xhr.send(params)
+  })
+  return p
 }
 
-
-// const postData = {
-//   userName: 'sunshine',
-//   password: '123'
-// }
-// xhr.send(JSON.stringfy(postData))

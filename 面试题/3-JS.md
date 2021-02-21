@@ -10,8 +10,7 @@
 
    - 原生对象：内置对象（包装类：Symbol，Number，Boolean，String）和arguments
    - 宿主对象：浏览器环境对象（window，document等）NodeJs环境对象（global等）
-   - 引擎扩展对象：XML，Script等
-
+   
 2. 数据类型判断的方式
 
    - typeof 操作符：判断基本类型的数据，但是typeof null 返回的是“object” ，因为null表示一个空对象指针
@@ -22,9 +21,9 @@
 
 3. 值类型和引用类型的区别？
 
-   值类型：String,Number,Boolean,Null,Undefined, Symbol都会分配栈区。它的值是存放在栈中的简单数据段，数据大小确定，内存空间大小可以分配；按值存放，所以可以**按值访问**。
+   值类型：String,Number,Boolean,Null,Undefined, Symbol都会分配栈区。它的值是存放在栈中的简单数据段，按值存放，所以可以**按值访问**。
 
-   引用类型： Object （对象）的变量都放到堆区。它在栈内存中保存的实际上是**对象在堆内存中的引用地址**， 通过这个引用地址可以快速查找到保存在堆内存中的对象。存放在堆内存中的对象，每个空间大小不一样，要根据情况进行特定的配置。
+   引用类型： Object （对象）的变量都放到堆区。它在栈内存中保存的实际上是**对象在堆内存中的引用地址**， 通过这个引用地址可以快速查找到堆内存中的对象。
 
 4. 写出代码的打印结果
 
@@ -44,7 +43,7 @@
 
 2. 何时使用 === ，何时使用 ==？
 
-   除了 `== null`之外，其余都用 `===`，因为 `obj == null`是 `obj === null || obj === undefined`的简写，可以用来判断一个对象是否存在且不为空。eslint校验规则和jq源码中都这样使用
+   除了 `== null`之外，其余都用 `===`，因为 `obj == null`是 `obj === null || obj === undefined`的简写，可以用来判断一个对象是否存在且不为空。eslint校验规则和jq源码中都这样使用的
 
 3. 常见的逻辑判断返回false的值有哪些？
 
@@ -119,6 +118,71 @@
     1. 数字+undefined的结果是NaN
     2. 字符串连接值都会转换为字符串
 
+## 数组&对象
+
+1. 遍历对象的方式有哪些？
+
+      1. for...in：遍历对象**自身和原型**的**可枚举字符串**属性
+      2. Object.keys()： 接受一个对象,返回对象的**自身的、可枚举、字符串属性名**组成的一个数组
+      3. Object.getOwnPropertyNames()：接受一个对象,返回对象的**自身的、可枚举和不可枚举、字符串属性名**组成的一个数组
+      4. Object.getOwnPropertySymbols()：接受一个对象,返回对象**自身的、可枚举和不可枚举、Symbol属性名**组成的一个数组，**不能遍历字符串属性**
+      5. Reflect.ownKeys()：接受一个对象,返回对象**自身的、可枚举和不可枚举、字符串和Symbol属性名**组成的一个数组
+
+   7. 遍历数组的方式有哪些？
+
+      1. for 循环和 for-in 能正确响应 break、continue 和 return语句，但 forEach 不行
+      2. forEach() 总是返回 undefined，callback函数可以改变调用他的数组
+      3. map 会对数组的每一项进行处理，返回新数组，其中包含对之前每一项处理结果；
+      4. for-of 只有可迭代对象（iterator）才能使用，包括：Array，Map，Set，String，TypedArray，arguments 对象等，普通对象不能使用，常用于异步任务的遍历
+      5. filter只会把符合条件的数值返回，形成一个新数组
+      6. every() 是对数组中的每一项运行给定函数。如果该函数对每一项返回 true ,则返回 true (全部符合条件)，否则返回 false。
+      7. some()是对数组中每一项运行指定函数，如果该函数对任一项返回true，则返回true。(只要有一个符合)，否则返回false
+      8. reduce 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。reduce 可以作为一个高阶函数，用于函数的 compose
+      9. reduceRight 方法的功能和 reduce 功能是一样的，不同的是 reduceRight 从数组的末尾向前将数组中的数组项做累加
+      10. find返回数组中符合测试函数条件的第一个元素。否则返回undefined
+      11. findIndex 返回传入一个测试函数条件的第一个元素的位置，没有则返回 -1。
+      12. keys、values、entries 都会返回一个遍历器对象，可以用 for...of 循环进行遍历。
+          - keys() — 返回元素索引
+          - values() — 返回元素本身
+          - entries() — 返回元素和索引
+
+   8. 迭代器和生成器的区别
+
+      1. 迭代器是一种接口，为各种不同的数据结构提供统一的访问机制，任何数据结构只要部署 Iterator 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）
+      2. Generator 函数是一个状态机，封装了多个内部状态
+      3. Generator 函数是一个遍历器对象生成函数，可暂停(惰性求值)， yield可暂停，next方法可启动。每次返回的是yield后的表达式结果
+      4. 由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口
+
+   9. 类数组转数组的方式有哪些？
+
+      由于类数组不具有数组所具有的操作数组的方法，将类数组转换为数组之后就能调用如shift,unshift,splice,slice,concat,reverse,sort等这些强大的方法。
+
+      1. Array.prototype.slice.call(arguments)
+      2. Array.from(agruments)
+      3. 拓展运算符 ...agruments
+      4. 遍历类数组元素, 并push进一个新数组
+      
+   10. 列举call，apply，bind的应用场景
+
+       call的应用：**类数组转换为数组**
+
+       1.  [].slice.call(arguments)
+       2. Array.prototype.slice.call(arguments)
+       3. [].forEach.call(arguments, item => {})`
+
+       apply应用：**获取数组中的最大值**
+
+       ```js
+       let arr = [4, 6, 10, 3, 5];
+       console.log(Math.max.apply(Math, arr))
+       ```
+
+        bind应用：**改变点击事件的this**
+
+       ```js
+       document.body.onclick = func.bind(obj, 10, 20)
+       ```
+
 ## 原型链
 
 1. 什么是原型和原型链？
@@ -148,43 +212,14 @@
     - 如果相等返回`true`，否则**递归向上查找**至原型链顶端
     - 直至Object.prototype顶端与null比较，如果都不相等，返回`false`
 
-11. class的原型本质如何理解？
-
-    获取实例的属性时，先在自身的属性和方法中寻找，找不到就会自动查找隐式原型
-
 12. new的实现原理
 
     - 创建一个空对象，这个对象将会作为执行构造函数之后返回的对象实例
     - 将这个空对象的隐式原型（`__proto__`）指向构造函数的显示原型（ `prototype`）
     - 将这个空对象赋值给构造函数内部的this，并执行构造函数逻辑
-    - **根据构造函数执行逻辑，如果构造函数返回了一个对象，那么这个对象会取代 new 出来的结果，否则 new 函数会自动返回这个新对象**
-
-13. 遍历对象的方式有哪些？
-
-    | 遍历方式\支持特性              | string属性 | Symbol属性 | 不可枚举属性 | 原型属性 |
-    | ------------------------------ | ---------- | ---------- | ------------ | -------- |
-    | for...in                       | √          | ×          | ×            | √        |
-    | Object.keys()                  | √          | ×          | ×            | ×        |
-    | Object.getOwnPropertyNames()   | √          | ×          | √            | ×        |
-    | Object.getOwnPropertySymbols() | ×          | √          | √            | ×        |
-    | Reflect.ownKeys()              | √          | √          | √            | ×        |
-
-7. for...in 、forEach 和 for...of，map的区别
-
-   1. for...of是异步执行的，常用于异步的遍历，for...in和forEach是同步执行的
-
-      ```js
-      !(async function() {
-        for (let i of nums) {
-          const res = await muti(i)
-          console.log(res)
-        }
-      })()
-      ```
-
-   
-
-8. 类数组转数组的方式有哪些？
+    - 如果构造函数返回了一个对象，那么这个对象会取代 new 出来的结果，否则 new 函数会自动返回这个新对象
+    
+5. 实现继承的方式有哪些？
 
 ## 作用域和闭包
 
@@ -239,7 +274,7 @@
    4. 模块化：单例模式，利用单独的实例来管理事物相关的特征，实现模块划分
    5. 惰性函数：储存已经执行过一次的函数
    6. 函数柯里化：利用闭包保存机制，把一些信息预先存储下来（预处理的思想）
-   7. 函数的防抖和节流
+   7. 函数的防抖和节流：数据隔离
 
 6. this在不同的场景下如何取值？
 
@@ -330,28 +365,7 @@
    }
    ```
 
-10.  列举call，apply，bind的应用场景
-
-     call的应用：**类数组转换为数组**
-
-     1. ` [].slice.call(arguments)`` 
-     2. ``Array.prototype.slice.call(arguments)`
-     3. [].forEach.call(arguments, item => {})`
-
-     apply应用：**获取数组中的最大值**
-
-     ```js
-     let arr = [4, 6, 10, 3, 5];
-     console.log(Math.max.apply(Math, arr))
-     ```
-
-      bind应用：**改变点击事件的this**
-
-     ```js
-     document.body.onclick = func.bind(obj, 10, 20)
-     ```
-
-11. 按顺序写出控制台打印结果 （2020 碧桂园）
+10. 按顺序写出控制台打印结果 （2020 碧桂园）
 
     ```js
     var User = {
@@ -443,8 +457,11 @@
       3. all：返回一个Promise实例
          1. 如果promise实例，在iterable参数内的所有 Promise 实例都成功或不包含promise时完成回调
          2. 如果参数中的Promise实例有一个失败，则此实例回调失败，失败原因是第一个Promise实例失败的原因
-      4. race：返回一个Promise实例对象，第一个resolve的实例会直接出发此实例的resolve回调
-      5. allSettled
+         3. 无法准确的定位错误，所以就有了Promise.allSettled
+      4. allSettled：返回一个Promise实例
+         1. 返回一个在所有给定的成功或失败的promise实例，并带有一个对象数组，每个对象表示对应的promise结果
+         2. 如果我们请求多个接口需要统计错误的次数，就可以用到此方法
+      5. race：返回一个Promise实例对象，第一个resolve的实例会直接出发此实例的resolve回调
 
 
 7. Promise链式调用，如果第一个then返回的结果是数字或者函数，后面的then返回什么？
@@ -478,21 +495,21 @@
 
 10. 对 async/await 的理解，分析内部原理
 
-      1. 背景：Promise解决了回调地狱的问题，但是如果遇到复杂的业务，代码里面会包含大量的 then 函数，使得代码依然不是太容易阅读。
-      2. ES7 引入了 async/await，提供了在不阻塞主线程的情况下使用**同步代码实现异步访问资源的能力**，并且使得代码逻辑更加清晰，支持 try-catch 来捕获异常，非常符合人的**线性思维**。
-      3. 异步的本质还是回调函数
-
+      1. 异步的本质还是回调函数，Promise解决了回调地狱的问题，但是如果遇到复杂的业务，代码里面会包含大量的 then 函数，使得代码依然不是太容易阅读。
+      2. ES7 引入了 async/await，提供了在不阻塞主线程的情况下使用**同步代码实现异步访问资源的能力**，使得代码逻辑更加清晰，非常符合人的**线性思维**。
+    
 11. promise，async await ， Generator 的区别
 
-    - async await 是一个通过异步执行并隐式返回 Promise 作为结果的函数，相当于promise.then
-    - async await 是Generator函数的语法糖，能够自动执行生成器函数，且可以更加方便地实现异步流程。
+       - async await 是一个通过异步执行并隐式返回 Promise 作为结果的函数
+       - await相当于promise.then，使用try-catch 捕获异常类似于Promise.catch
+       - async await 是Generator函数的语法糖，能够自动执行生成器函数，且可以更加方便地实现异步流程。
+    
+   12. vue中nexttick的原理
+
+   13. 实现异步的方式有哪些？
 
 
-## DOM文档对象模型
-
-1. DOM是哪种数据结构？
-
-   树结构
+## DOM
 
 2. DOM操作常用的API有哪些？
 
@@ -518,7 +535,7 @@
    3. div.nodeName
    4. div.nodeType
 
-   attribute形式
+   attr 形式
 
    1. div.getAttribute('data-name')
    2. div.setAttribute('data-name', 'aaa')
@@ -528,6 +545,8 @@
    1. property：修改对象属性，不会体现在html结构中
    2. attribute：修改html属性，会改变html结构
    3. 两者都有可能引起DOM的重绘
+
+3. attr如何改变html结构的？
 
 4. 一次性插入多个DOM节点，考虑性能该如何实现
 
@@ -546,7 +565,7 @@
    listNode.appendChild(frag)
    ```
 
-## BOM浏览器对象模型
+## BOM
 
 1. 如何识别浏览器类型
 
@@ -558,35 +577,49 @@
 2. 分析拆解url各个部分
 
    location.href地址、protocol协议、host域名、search查询参数、hash、pathName
+   
+3. offsetTop是div到哪里的距离？
+   **HTMLElement.offsetLeft**和**HTMLElement.offsetTop**这两个属性是基于offsetParent的
 
-## 事件
+   - 如果当前元素的父级元素没有进行CSS定位（position为absolute或relative）,offsetParent为body
+   - 假如当前元素的父级元素中有CSS定位，offsetParent取最近的那个父级元素。
+   - offsetLeft返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值。
+   - offsetTop返回当前元素相对于其 offsetParent 元素的顶部的距离
 
-1. 编写一个通用的事件监听函数
+## DOM事件
 
-   通过addEventListener为div添加监听事件
+1. 编写一个通用的事件委托函数
+
+   ul>li>span，对于这样的dom结构，如果span的点击函数想要委托给li，那么就将ul作为外层事件监听，获取点击的目标元素span，span向上查找到li元素，将目标元素指向给li，所以点击span执行的事件就委托给了li
 
    ```js
-   function bindEvent(el, type, selector, fn) {
+   function eventDelegate(element, eventType, selector, fn) {
      if (fn == null) {
        fn = selector
        selector = null
      }
-     el.addEventlistener(type, event => {
-       const target = event.target
-       if (selector) {
-         if (target.matches(selector)) {
-           fn.call(target, event)
+     element.addEventListener(eventType, event => {
+         let target = event.target
+         if (selector) {
+           while (!target.matches(selector)) {
+               if (element === target) {
+                   target = null
+                   break
+               }
+               target = target.parentNode
+           }
+           target && fn.call(target, event)
+         } else {
+           fn(event)
          }
-       } else {
-         fn.call(target, event)
-       }
      })
+     return element
    }
    ```
 
 2. 描述事件冒泡的流程
 
-   多层div添加绑定事件，事件会从最底层向上依次触发，可以用e.stopPropation来阻止冒泡
+   多层嵌套div添加绑定事件，事件会从最底层向上依次触发
 
    1. 基于DOM的属性结构
    2. 事件会顺着触发元素向上冒泡
@@ -594,41 +627,47 @@
 
 3. 无限下拉图片列表，如何监听每个图片的点击？
 
-   事件代理：在某个父元素上添加点击事件，通过event.target获取到当前点击的子元素。优点：代码简洁，减少浏览器内存占用，但是不要滥用
+   在某个父元素上添加点击事件，通过event.target获取触发元素，通过event.matches来判断是否是想要的触发元素
+
+   优点：代码简洁，减少浏览器内存占用，但是不要滥用
 
 4. event的用途
 
    1. 获取触发的元素，用于事件委托：event.target
    2. 阻止事件默认行为：event.preventDefault()
+   3. 阻止冒泡
+      - event.stopPropation，让事件只在指定的元素上触发；
+      - return false
 
-5. 事件传播是怎么回事？
+5. 事件绑定的方式
 
-## ajax
-
-1. 
-
-## 存储
+   1. 事件监听addEventlistener，适合动态创建div，虚拟dom用的就是这个
+   2. 手写在div上，比如onclick
+   3. dom.onclick = function() {}
+   
 
 
 # 手写系列
 
-## 模拟JavaScript API
+## API
 
-1. 手写一个ajax
+1. 实现简易的ajax
+2. 实现深拷贝
+3. 实现apply，call
+4. 实现bind
+5. 实现new
+6. 实现Object.Create()
 
-2. 实现一个数组的flatten
-
-3. 实现一个深拷贝
-4. 实现一个apply，call
-5. 实现一个bind
-
-## 模拟lodash
+## lodash
 
 1. 实现一个深拷贝
-2. 防抖实现方式
-3. 节流实现方式
+2. 实现一个数组的flatten
+3. 实现map
+4. 实现一个数组的排序函数，返回新的数组
+5. 防抖实现方式
+6. 节流实现方式
 
-## 实战场景
+## 实战
 
 1. 红灯3秒亮一次,绿灯1秒亮一次,黄灯2秒亮一次,  如何让三个灯不断交替重复亮灯? 
 
@@ -645,32 +684,26 @@
 
 5. 实现一个请求函数，传入一个url数组，和并发请求的数量。
 
-## 算法
+6. 如何实现js的沙盒模型
 
-1. 实现一个柯里化函数，sum(1,2,3)=6
-
-2. 二分查找
-
-3. 以最快的方式取出数组中第二大的值
-
-4. “abcabcdabcdeabcdefhijklmnkjhxlkdslkcjdslk”，查找字符串中最长的连续字母片段
+7. 对象和url参数的互相转换，分别如何实现？
 
 8. 创建代理对象,通过代理对象访问属性时抛出错误 `Property "${key}" does not exist`
 
-   ```js
-   const man = {
-   	name: 'jscoder',
-   	age: 22
-   }
-   
-   const pMan = new Proxy(man, {
-   	get(target, key){
-   		if (key in target) {
-   			return target[key]
-   		} else {
-   			throw new Error(`Property "${key}" does not exist`)
-   		}
-   	}
-   })
-   ```
+```js
+const man = {
+	name: 'jscoder',
+	age: 22
+}
+
+const pMan = new Proxy(man, {
+	get(target, key){
+		if (key in target) {
+			return target[key]
+		} else {
+			throw new Error(`Property "${key}" does not exist`)
+		}
+	}
+})
+```
 

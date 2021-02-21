@@ -106,11 +106,13 @@
    - flex-shrink：空间不足时，元素缩小比例。0不缩小，全都是1代表按照1:1比例缩小
    - flex-basis：分配空间之前，元素的初始长度分配基准。
 
-9. relative，absolute，fixed分别相对于哪里定位？
+9. 定位的方式有哪些？relative，absolute，fixed分别相对于哪里定位？
 
-   1. relative：相对自身定位
-   2. absolute：相对于上面第一层定位元素定位（relative，fixed），如果外层没有定位元素，相对body
-   3. fixed：相对于浏览器窗口定位
+   1. static：默认值
+   2. relative：相对自身定位
+   3. absolute：相对于上面第一层定位元素定位（relative，fixed），如果外层没有定位元素，相对body
+   4. fixed：相对于浏览器窗口定位
+   5. sticky：粘性定位，元素遮住滚动而来的“正常”的文档流
 
 10. line-height如何继承？
 
@@ -172,7 +174,7 @@
     - 嵌套：所有预编译器都支持的语法特性，也是原生CSS最让开发者头疼的问题之一；
     - 变量/运算：增强了源码的可编程能力
     - mixin/继承：增强代码复用性，更便于解决浏览器兼容性；
-    - 模块化：提高了源码的可维护性。
+    - 模块化：提高了源码的可维护性
     
 
 ## 笔试
@@ -182,6 +184,7 @@
       - 兼容低版本浏览器，按照文档加载顺序排列div，最重要的中间区域最先显示
       - 使用float布局：两侧使用margin负值，让左右两侧的块和中间块重合
       - 防止中间内容被两侧覆盖，一个用padding，一个用margin
+      
 2. 用flex实现一个三点的骰子
 
       - 主轴两端对齐，单个元素通过align-self单独设置对齐方式
@@ -200,6 +203,8 @@
       - absolute元素已知高度：top:50% + margin-top负值
       - absolute元素未知高度：transform(-50%，-50%)
       - absolute元素：top left right bottom = 0 + margin: auto
+      - flex
+      - display:table
 
 4. 排列组合：实现2,5,8,11...顺序的块背景色与其它不一致
 
@@ -215,3 +220,5 @@
       - grid布局
       - flex布局
       - float布局
+
+7. 实现一个div吸顶效果的方式有哪些？
