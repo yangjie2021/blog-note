@@ -27,33 +27,23 @@
 
    作为对象的属性名，可以保证属性名不会重复。但要注意，symbol不能过通过for... in...遍历出来
 
-5. 写出代码的打印结果
-
-   ```js
-   var a = 1;
-   var b = 2;
-   console.log(a+++b)
-   ```
-
-   结果为3，++运算符的优先级高于+运算符，所以先执行a++得到1，然后1+b=3
-
 6. 严格模式有哪些限制？
 
-   1. 变量必须声明后再使用
-   2. 函数的参数不能有同名属性，否则报错
-   3. 不能使用`with`语句
-   4. 不能对只读属性赋值，否则报错
-   5. 不能使用前缀 0 表示八进制数，否则报错
-   6. 不能删除不可删除的属性，否则报错
-   7. 不能删除变量`delete prop`，会报错，只能删除属性`delete global[prop]`
-   8. eval不能在它的外层作用域引入变量
-   9. `eval`和`arguments`不能被重新赋值
-   10. `arguments`不会自动反映函数参数的变化
-   11. 不能使用`arguments.callee`
-   12. 不能使用`arguments.caller`
-   13. 禁止`this`指向全局对象
-   14. 不能使用`fn.caller`和`fn.arguments`获取函数调用的堆栈
-   15. 增加了保留字（比如`protected`、`static`和`interface`）
+   - 变量必须声明后再使用
+   - 函数的参数不能有同名属性，否则报错
+   - 不能使用`with`语句
+   - 不能对只读属性赋值，否则报错
+   - 不能使用前缀 0 表示八进制数，否则报错
+   - 不能删除不可删除的属性，否则报错
+   - 不能删除变量`delete prop`，会报错，只能删除属性`delete global[prop]`
+   - eval不能在它的外层作用域引入变量
+   - `eval`和`arguments`不能被重新赋值
+   - `arguments`不会自动反映函数参数的变化
+   - 不能使用`arguments.callee`
+   - 不能使用`arguments.caller`
+   - 禁止`this`指向全局对象
+   - 不能使用`fn.caller`和`fn.arguments`获取函数调用的堆栈
+   - 增加了保留字（比如`protected`、`static`和`interface`）
 
 ## 类型判断
 
@@ -350,17 +340,14 @@
    4. 使用`new`方法调用构造函数时，构造函数内的this会被绑定到新创建的实例上
    5. 在箭头函数中，`this`的指向是由外层（函数或全局）作用域来决定的
 
-
-
 ## 异步
 
 1. 有哪些方法可以处理 JS 中的异步代码？
 
    - 回调
-- Promise
+   - Promise、
    - async/await
-   - 还有一些库： async.js, bluebird, q, co
-   
+   - 库： async.js, bluebird, q, co
 2. 同步和异步的区别
 
    异步是基于js是单线程语言的本质产生的，异步不会阻塞代码执行，同步会阻塞代码执行。
@@ -451,15 +438,15 @@
 
 11. 对 async/await 的理解，分析内部原理
 
-         1. 异步的本质还是回调函数，Promise解决了回调地狱的问题，但是如果遇到复杂的业务，代码里面会包含大量的 then 函数，使得代码依然不是太容易阅读。
-         2. ES7 引入了 async/await，提供了在不阻塞主线程的情况下使用**同步代码实现异步访问资源的能力**，使得代码逻辑更加清晰，非常符合人的**线性思维**。
+    1. 异步的本质还是回调函数，Promise解决了回调地狱的问题，但是如果遇到复杂的业务，代码里面会包含大量的 then 函数，使得代码依然不是太容易阅读。
+     2. ES7 引入了 async/await，提供了在不阻塞主线程的情况下使用**同步代码实现异步访问资源的能力**，使得代码逻辑更加清晰，非常符合人的**线性思维**。
 
 10. 什么是生成器 Generator ？
 
-         1. ES6 提供的一种异步编程解决方案, Generator 函数是一个状态机，封装了多个内部状态
-         2. Generator 函数是一个遍历器对象生成函数，可暂停(惰性求值)， yield可暂停，next方法可启动。每次返回的是yield后的表达式结果
-            3. `Generator`函数可以说是`Iterator`接口的具体实现方式
-            4. `Generator`函数可以通过配合Thunk 函数更轻松更优雅的实现异步编程和控制流管理
+      1. ES6 提供的一种异步编程解决方案, Generator 函数是一个状态机，封装了多个内部状态
+       2. Generator 函数是一个遍历器对象生成函数，可暂停(惰性求值)， yield可暂停，next方法可启动。每次返回的是yield后的表达式结果
+       3. `Generator`函数可以说是`Iterator`接口的具体实现方式
+       4. `Generator`函数可以通过配合Thunk 函数更轻松更优雅的实现异步编程和控制流管理
 
 13. promise，async await ， Generator 的区别
 
@@ -511,18 +498,16 @@
 
 3. attr 和 property 的区别
 
-   1. property：修改对象属性，不会体现在html结构中
-   2. attribute：修改html属性，会改变html结构
-   3. 两者都有可能引起DOM的重绘
-
-4. attr如何改变html结构的？
+   1. 对于 html 的标准属性来说，attribute 和 property 是同步的，是会自动更新的
+   2. 但是对于自定义的属性来说，他们是不同步的.(自定义属性不会自动添加到property)
+   3. property 的值可以改变；attribute 的值不能改变
 
 5. 如何获取屏幕高度、网页视口高度、body高度？
 
    1. window.screen.height：屏幕高度
-2. window.innerHeight：网页视口高度
+   2. window.innerHeight：网页视口高度
    
-3. document.body.clientHeight：body高度
+   3. document.body.clientHeight：body高度
    
 7. offsetWidth的值如何计算？
 
@@ -535,16 +520,6 @@
    - 假如当前元素的父级元素中有CSS定位，offsetParent取最近的那个父级元素。
    - offsetLeft返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值。
    - offsetTop返回当前元素相对于其 offsetParent 元素的顶部的距离
-
-9. window.history有哪些常见的API
-
-10. 获取窗口的宽高相关的API
-
-11. 如何刷新、跳转界面？
-
-12. 如何获取浏览器的几倍屏？
-
-12. 实现置顶效果，缓慢回到顶部
 
 13. 虚拟DOM的优缺点
 
@@ -571,6 +546,34 @@
 
    location.href地址、protocol协议、host域名、search查询参数、hash、pathName
    
+3. history模式和hash模式的原理
+
+   1. hash 模式是一种把前端路由的路径用井号 `#` 拼接在真实 URL 后面的模式。当号 `#` 后面的路径发生变化时，浏览器并不会重新发起请求，而是会触发 `window.hashchange` 事件
+   2. history模式：利用了HTML5中新增的history.pushState() 和 history.replaceState() 方法
+      - history.replaceState({}, null, '/b') // 替换路由
+      - history.pushState({}, null, '/a') // 路由压栈
+      - history.back() // 返回
+      - history.forward() // 前进
+      - history.go(-2) // 后退2次
+
+4. 如何去解决history模式下刷新报404的弊端
+
+   服务器端将不存在的路径请求重定向到入口文件（index.html）
+
+5. 获取窗口的宽高相关的API
+
+   1. 网页可见区域宽/高：document.body.clientWidth、clientHeight 
+   2. 网页可见区域宽/高（包括边线）：document.body.offsetWidth/offsetHeight 
+   3. 网页正文全文宽/高：document.body.scrollWidth/scrollHeight 
+   4. 网页被卷去的上/左：document.body.scrollTop/scrollLeft
+   5. 网页正文部分上/左：window.screenTop/screenLeft 
+   6. 屏幕分辨率的宽/高：window.screen.width/height 
+   7. 屏幕可用工作区宽度/高度：window.screen.availWidth/availHeight 
+
+6. 如何实现页面回退刷新?
+
+   - 旧版本: window.history.back() + window.location.href=document.referrer
+   - 新版本: HTML5的新API扩展了window.history，使历史记录点更加开放了。可以存储当前历史记录点、替换当前历史记录点、监听历史记录点onpopstate, replaceState
 
 ## 事件
 
@@ -633,396 +636,43 @@
 9. 事件绑定的方式
 
    1. 事件监听addEventlistener，适合动态创建div，虚拟dom用的就是这个
-   2. 手写在div上，比如onclick
+   2. 添加在div上，比如onclick
    3. dom.onclick = function() {}
 
-## 手写系列
+## TypeScript
 
-### 分析题
+1. 你觉得 TypeScript 和 JavaScript 有什么区别
 
-1. `[1,2,3].map(parseInt)`的结果
+   Javascript是一个动态类型且弱类型的语言，早前的js应用简单，没有编译环节。但是在大规模应用中，弱类型的优势就变成了短板，比如使用了对象上不存在的属性/方法、实参和形参类型不匹配，造成函数功能发生改变、隐式转换导致使用时的错误用法
 
-   代码补全如下：
+   TS是JS的超集，TS在JS的基础上添加类型系统以及完全的支持ES6+语法，TS需要编译，最低可以编译到ES3版本，JS基本直接被浏览器解析执行。使用Ts的优势是错误更早暴露、代码更智能，编码更准确、重构更牢靠、减少不必要的类型判断
 
-   ```js
-   [1,2,3].map((item, index) => {
-     return parseInt(item, index);
-   })
-   
-   parseInt(1, 0)	// 把1当做10进制，转为10进制
-   parseInt(2, 1)	// 把2当做1进制，没有在2-36之间，所以转为NaN
-   parseInt(3, 2)	// 把3当做2进制，转为10进制，但是2进制只有1，0符合，所以为NaN
-   // 1, NaN, NaN
-   ```
+   **TS的缺点**：语言本身多了很多概念（类，接口，枚举，泛型）等，学习成本高，但是好在ts是渐进式的，可以向下兼容不适合中小型项目，Ts会增加一些成本
 
-2. 求下列题内容输出
+2. ts新增了哪些数据类型？
 
-   ```js
-   let result = 100 + true + 21.2 + null + undefined + "Tencent" + [] + null + 9 + false;
-   console.log(result); // NaNTencentnull9false
-   
-   console.log([]==false);// true
-   console.log(![]==false);// true
-   ```
+   - 元组(Tuple)：数组的拓展，表示已知元素数量和类型的数组
+   - 枚举(enum)：定义一组角色，每一个角色用一个数字代表,从0开始编号。
+   - any: 任意的,不清楚类型的变量类型，可以可以用来兼容老项目，但是存在类型安全问题，不要滥用
+   - void：没有任何类型，用来定义没有返回值的函数，void类型的变量只能赋值给undefined和null，其他类型不能赋值给void类型的变量
+   - never：永不存在的值的类型，是任何类型的子类型，除它自身外的任何类型都不能赋值给never类型
 
-   1. 数字+undefined的结果是NaN
-   2. 字符串连接值都会转换为字符串
-   
-3. 写出打印结果并分析
+3. enum 和 const enum 的区别是什么？
 
-   ```js
-   var x = 1;
-   function func(x, y = function anonymous1() {x = 2}) {
-       x = 3;
-       y();
-       console.log(x);
-   }
-   func(5);
-   console.log(x);
-   ```
+   枚举类型会入侵到运行时代码, 编译结果会编译成一个双向的键值对对象，如果不需要通过索引器访问属性值，就在enum前加上const。数值枚举存在索引递增机制，如果给其中属性默认值，下面的其它属性值会累加。
 
-   答案：2，1
+4. 装饰器的实现原理及应用场景？
 
-   1. `EC(func)`中的`x = 3;`影响`EC(func)`中的形参x
-   2. `EC(anonymous1)`中的`x=2`影响  `EC(func)`中的形参x，因为`EC(anonymous1)`并没有x，所以打印2
-   3. 最后一个log打印`EC(G)`中的x = 1
+   **闭包是一个持有自由变量的函数对象**的概念，而通过**闭包可以实现装饰器**，在使用使用装饰器时，可以使用`@wrapper`形式的语法糖。decorator使得在运行时注释和修改类和属性成为可能。
 
-4. 按顺序写出控制台打印结果 （2020 碧桂园）
+5. interface和type的区别？
 
-   ```js
-   var User = {
-        count:1,
-        action:{
-        getCount:function () {
-            return this.count
-         }
-        }
-   }
-   var getCount = User.action.getCount;
-       setTimeout(() => {
-       console.log("result 1",User.action.getCount())
-   })
-   console.log("result 2",getCount())
-   ```
+   相同点：都可以定义一个对象或函数
 
-   结果：result 2 undefined，result 1 undefined
+   区别
 
-   1. result 2  中执行的函数getCount()没有执行主体，里面函数的 this 是window，所以打印undefined
-   2. result 1 中执行的方法getCount()前面的执行者是action，而action中没有count熟悉，所以打印结果是 undefined。如果想输出1，可以通过`bind(user)`的方式改变this指向
-
-5. 如果.then传入不是函数，后面的then会返回什么
-
-   ```js
-   Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
-   ```
-
-   结果是1，.then里面的参数如果不是函数，就会无视它，被替换为val=>val
-
-6. 如果promise的执行器函数，调用了resolve之后紧接着又调用了reject，状态会改变吗？
-
-   ```js
-   const promise = new Promise((resolve, reject) => {
-     resolve('success')
-     reject('error')
-   })
-   promise.then(res => {
-     console.log('then', res)
-   }).catch(err => {
-      console.log('catch', err)
-   })
-   ```
-
-   不会，返回结果为then success，因为状态只会从pending变为fufilled或rejected
-
-### 编程题
-
-1. 实现简易的ajax
-2. 实现深拷贝
-3. 实现apply，call
-4. 实现bind
-   1. 保存原函数的this指针
-   2. 取出第一个参数作为上下文，剩余参数类数组转数组
-   3. 返回一个新的函数，新的函数中绑定目标对象并传参，使用apply将this指向目标对象
-5. 实现new
-6. 实现Object.Create()
-7. 实现map
-8. 实现instanceof
-9. 实现一个深拷贝
-
-2. 实现一个数组的flatten
-
-3. 实现一个数组的排序函数，返回新的数组
-
-4. 实现柯里化函数
-
-5. 防抖实现方式
-
-   函数防抖是指频繁触发的情况下，只有足够的空闲时间，才执行代码一次
-
-6. 节流实现方式
-
-   函数节流是指一定时间内js方法只跑一次
-
-7. 实现一个sleep函数
-
-   利用一个伪死循环阻塞主线程
-
-8. 实现对象的深冻结
-
-   ```js
-   function deepFreeze(object) {
-       let propNames = Object.getOwnPropertyNames(object);
-       for (let name of propNames) {
-           let value = object[name];
-           object[name] = value && typeof value === "object" ?
-               deepFreeze(value) : value;
-       }
-       return Object.freeze(object);
-   }
-   let person = {
-       name: "Leonardo",
-       profession: {
-           name: "developer"
-       }
-   };
-   deepFreeze(person);
-   person.profession.name = "doctor"; // TypeError: Cannot assign to read only property 'name' of object
-   ```
-
-1. 编写一个通用的事件委托函数
-
-   ul>li>span，对于这样的dom结构，如果span的点击函数想要委托给li，那么就将ul作为外层事件监听，获取点击的目标元素span，span向上查找到li元素，将目标元素指向给li，所以点击span执行的事件就委托给了li
-
-   ```js
-   function eventDelegate(element, eventType, selector, fn) {
-     if (fn == null) {
-       fn = selector
-       selector = null
-     }
-     element.addEventListener(eventType, event => {
-         let target = event.target
-         if (selector) {
-           while (!target.matches(selector)) {
-               if (element === target) {
-                   target = null
-                   break
-               }
-               target = target.parentNode
-           }
-           target && fn.call(target, event)
-         } else {
-           fn(event)
-         }
-     })
-     return element
-   }
-   ```
-
-2. 一次性插入多个DOM节点，考虑性能该如何实现
-
-   思路：将频繁操作改为一次性操作
-
-   实现：创建文档片段，循环插入片段后再将片段插入真实DOM
-
-   ```js
-   const listNode = document.getElementById('list')
-   const frag = document.createDocumentFragment()
-   for (let i = 0; i< 10; i++) {
-     const li = document.createElement('li')
-     li.innerHtml = "list item" + i
-     frag.appendChild(li)
-   }
-   listNode.appendChild(frag)
-   ```
-
-3. 设置一个变量a，使得if语句能够执行
-
-   ```
-   var a = ?;
-   if (a == 1 && a == 2 && a == 3) {
-       console.log(1);
-   }
-   ```
-
-   方式1. 将a设置为一个对象，并自定义一个`toString`方法
-
-      因为隐式类型转换，`==`时会将**对象a**转为字符串再转为数字类型，过程中会调用到对象原型链中的`toString`方法
-
-      ```js
-   var a = {
-     i: 0,
-     toString() {
-       return ++this.i
-     }
-   }
-   
-   if (a == 1 && a == 2 & a == 3) {
-     console.log(1)
-   }
-      ```
-
-   方式2. 使用`Object.definedProperty`（或者Proxy）数据拦截再处理，拦截到获取a的时候，按对应次数返回1，2，3
-
-      ```js
-   var i = 0;
-   Object.defineProperty(window, "a", {
-     get() {
-       return ++i;
-     }
-   })
-   
-   if (a == 1 && a == 2 & a == 3) {
-     console.log(1)
-   }
-      ```
-
-4. 创建10个`<a>`标签，点击的时候分别弹出对应的序号
-
-   ```js
-   let aDom
-   for (let i = 0; i < 10; i++) {
-     aDom = document.createElement('a')
-     aDom.innerHTML = i + '<br/>'
-     aDom.addEventListener('click', function (e) {
-       e.preventDefault()
-       console.log(i)
-     })
-     document.body.appendChild(aDom)
-   }
-   ```
-
-6. 修改下面的代码，让循环输出的结果依次为1， 2， 3， 4， 5
-
-   ```js
-   for (var i=1; i<=5; i++) {
-       setTimeout(function timer() {
-           console.log(i)
-       }, 1000 )
-   }
-   ```
-
-   方案1：闭包
-
-   ```js
-   for (var i = 1; i <= 5; i++) {
-     log(i) // 1 2 3 4 5
-   }
-   function log(i) {
-     setTimeout(function timer() {
-       console.log(i)
-     }, 1000)
-   }
-   ```
-
-   方案2：立即执行函数
-
-   ```js
-   for (var i = 1; i <= 5; i++) {
-     (function (i) {
-       setTimeout(function timer() {
-         console.log(i)
-       }, 1000)
-     })(i)
-   }
-   ```
-
-    方案3：块级作用域
-
-   ```js
-   for (let i=1; i<=5; i++) {
-     setTimeout(function timer() {
-       console.log(i)
-     }, 1000 )
-   }
-   ```
-
-10. 实现checkbox全选以及反选
-
-11. 红灯3秒亮一次,绿灯1秒亮一次,黄灯2秒亮一次,  如何让三个灯不断交替重复亮灯? 
-
-    1. 亮灯函数，返回promise对象，将SetTimeout写在执行器里
-    2. 执行亮灯函数，利用promise.then，红绿黄亮灯方法依次执行，循环往复调用此函数
-
-12. 写一个请求函数，传入一个url，如果请求失败，第一次1s后重试，第二次1.5s后重试，第三次2.25s，第四次不试了
-
-    fetchAPI
-
-13. 实现异步的串行和并行
-
-    ```js
-    // 字节面试题，实现一个异步加法
-    function asyncAdd(a, b, callback) {
-      setTimeout(function () {
-        callback(null, a + b);
-      }, 500);
-    }
-    
-    // 1. promisify
-    const promiseAdd = (a, b) => new Promise((resolve, reject) => {
-      asyncAdd(a, b, (err, res) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(res)
-        }
-      })
-    })
-    
-    // 2. 串行处理
-    async function serialSum(...args) {
-      return args.reduce((task, now) => task.then(res => promiseAdd(res, now)), Promise.resolve(0))
-    }
-    
-    // 3. 并行处理
-    async function parallelSum(...args) {
-      if (args.length === 1) return args[0]
-      const tasks = []
-      for (let i = 0; i < args.length; i += 2) {
-        tasks.push(promiseAdd(args[i], args[i + 1] || 0))
-      }
-      const results = await Promise.all(tasks)
-      return parallelSum(...results)
-    }
-    
-    // 测试
-    (async () => {
-      console.log('Running...');
-      const res1 = await serialSum(1, 2, 3, 4, 5, 8, 9, 10, 11, 12)
-      console.log(res1)
-      const res2 = await parallelSum(1, 2, 3, 4, 5, 8, 9, 10, 11, 12)
-      console.log(res2)
-      console.log('Done');
-    })()
-    ```
-
-14. 实现一个版本对比的函数，比较版本号大小
-
-15. 创建代理对象,通过代理对象访问属性时抛出错误 `Property "${key}" does not exist`
-
-16. 实现一个请求函数，传入一个url数组，和并发请求的数量。
-
-17. 如何实现js的沙盒模型
-
-18. 对象和url参数的互相转换，分别如何实现？
-
-19. 随机生成16进制颜色与rgb互转
-
-20. 创建代理对象,通过代理对象访问属性时抛出错误 `Property "${key}" does not exist`
-
-```js
-const man = {
-	name: 'jscoder',
-	age: 22
-}
-
-const pMan = new Proxy(man, {
-	get(target, key){
-		if (key in target) {
-			return target[key]
-		} else {
-			throw new Error(`Property "${key}" does not exist`)
-		}
-	}
-})
-```
+   1. type 可以声明基本类型别名，联合类型，元组等类型，interface不能
+   2. type 语句中可以使用操作符 typeof & keyof，interface不能
+   3. interface 能够声明合并，type不能
+   4. interface 可以使用 extends 关键字，type不可以
 
