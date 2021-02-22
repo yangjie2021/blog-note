@@ -42,15 +42,6 @@
 
 15. vue3.0的新特性，了解 composition-api 和react hooks的区别？Vue3 究竟好在哪里？
 
-16. Proxy和Object.defineProperty的区别？
-
-    - Proxy代理整个对象，Object.defineProperty只代理对象上的某个属性 
-    - 如果对象内部要全部递归代理，则Proxy可以只在调用时递归，而Object.defineProperty需要在一开始就全部递归，Proxy性能优于Object.defineProperty
-    - Proxy 可以**监视**读写以外的操作，比如deleteProperty方法监听删除
-    - Proxy 可以很方便的监视数组操作，因为set有target, property, value三个入参
-    - Proxy 不需要侵入对象
-    - Proxy不兼容IE，Object.defineProperty不兼容IE8及以下
-
 17. composition api 和 react hooks的区别是什么？
 
 18. new Vue做了什么

@@ -1,3 +1,5 @@
+## 浏览器
+
 ## HTML
 
 1. 浏览器的渲染过程？
@@ -80,4 +82,6 @@
 
    - 块状元素指的是display:block/table 的元素，特点内容是可以**独占一行**。其中包括：div h1-h6 table ul ol p，pre
    - 内联元素指的是display:inline/inline-block的元素，特点是内容**依次连接直至浏览器的边缘换行**为止。其中包括：span img input button i figure
+   
+9. 异步加载js的方式
 
