@@ -57,3 +57,54 @@ for (let i = 0; i < 10; i++) {
   })
   document.body.appendChild(aDom)
 }
+
+/**
+ * url参数转json
+ */
+function getUrlParam() {
+  const href = window.location.href;
+  const args = href.split('?');
+  if (args[0] === href) {
+    return ''
+  }
+  const arr = args[1].split('&');
+  const obj = {}
+  for (const i = 0; i < arr.length; i++) {
+    const arg = arr[i].split('=')
+    obj[arg[0]] = arg[1]
+  }
+  return obj
+}
+
+/**
+* 将对象使用&拼接成url
+*/
+function queryStringify (obj) {
+  function toQueryPair(key,value) {
+    if (!value) {
+      return key
+    }
+    return key + '=' + encodeURIComponent(!value ? '' : String(value))
+  }
+
+  var result = []
+
+  for (var key in obj) {
+    key = encodeURIComponent(key)
+    var values = obj[key]
+  
+    if (values && values.constructor == Array) {
+      var queryValues = []
+      for (var i = 0, len = values.length; i < len; i++) {
+        queryValues.push(toQueryPair(key, values[i]))
+      }
+      result = result.concat(queryValues)
+    } else {
+      result.push(toQueryPair(key,values))
+    }
+  }
+
+  return result.join('&')
+
+}
+// queryStringify({name: 'leafront', list: [1,2,3]})
