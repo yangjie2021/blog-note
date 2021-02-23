@@ -6,20 +6,15 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./promise.js"></script>
+  <script src="./lodash.js"></script>
   <script>
-    let p1 = new MyPromise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('成功')
-      }, 2000)
-    })
+    function test() {
+      console.log('111');
+      sleep(2000);
+      console.log('222');
+    }
 
-    p1.then(result => {
-      console.log(result)
-      return 'aaa'
-    }).then(aaa => {
-      console.log(aaa)
-    })
+    test()
   </script>
 </body>
 </html>
