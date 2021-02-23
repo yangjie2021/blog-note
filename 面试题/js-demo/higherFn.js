@@ -9,6 +9,14 @@ function sleep(delay) {
   }
 }
 
+/* function test() {
+  console.log('111');
+  sleep(2000);
+  console.log('222');
+}
+
+test() */
+
 /**
  * 一次性函数
  */
@@ -82,7 +90,6 @@ function debounce (fn, delay) {
     }, delay)
   }
 }
-
 
 /**
  * 节流

@@ -6,15 +6,12 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./lodash.js"></script>
+  <script src="./array.js"></script>
   <script>
-    function test() {
-      console.log('111');
-      sleep(2000);
-      console.log('222');
-    }
-
-    test()
+    var total = reduce([1, 2, 3], function (accumulator, current) {
+      return accumulator + current;
+    }, 0)
+    console.log(total)
   </script>
 </body>
 </html>

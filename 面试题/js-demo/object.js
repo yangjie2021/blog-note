@@ -1,32 +1,20 @@
-import {
-  getType,
-  isPrimitive,
-  isObject,
-  isArray
-} from './type.js'
-
-// 深拷贝
-function cloneDeep (data, map = new WeakMap()) {
-  let result
-  if (isPrimitive(data)) {
-    return data
-  } else if (isObject(data)) {
-    result = { ...data }
-  } else if (isArray(data)) {
-    result = [...data]
+/**
+ * 对象深度冻结
+ */
+function deepFreeze(object) {
+  let propNames = Object.getOwnPropertyNames(object);
+  for (let name of propNames) {
+    let value = object[name];
+    object[name] = value && typeof value === "object" ? deepFreeze(value) : value;
   }
-
-  // 循环引用
-  if (map.get(data)) {
-    return map.get(data)
-  }
-  map.set(data, result)
-
-  Reflect.ownKeys(result).forEach(key => {
-    if (result[key] && getType(result[key]) === "object") {
-      result[key] = cloneDeep(data[key], map)
-    }
-  })
-
-  return result
+  return Object.freeze(object);
 }
+
+/* let person = {
+  name: "Leonardo",
+  profession: {
+    name: "developer"
+  }
+}
+deepFreeze(person)
+person.profession.name = "doctor" // TypeError: Cannot assign to read only property 'name' of object */

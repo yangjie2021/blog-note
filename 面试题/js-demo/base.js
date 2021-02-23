@@ -92,4 +92,74 @@ Function.prototype._bind = function (context, ...args1) {
 }
 
 
+// 获取数据类型
+const getType = obj => {
+  return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
+}
+
+// 判断是否是基本数据类型
+const isPrimitive = data => {
+  const primitiveType = [
+    'undefined','null','boolean','string','symbol',
+    'number','bigint','map','set','weakmap','weakset'
+  ]
+  return primitiveType.includes(getType(data))
+}
+
+const isObject = data => getType(data) === 'object'
+const isArray = data => getType(data) === 'array'
+
+// 深拷贝
+function cloneDeep (data, map = new WeakMap()) {
+  let result
+  if (isPrimitive(data)) {
+    return data
+  } else if (isObject(data)) {
+    result = { ...data }
+  } else if (isArray(data)) {
+    result = [...data]
+  }
+
+  // 循环引用
+  if (map.get(data)) {
+    return map.get(data)
+  }
+  map.set(data, result)
+
+  Reflect.ownKeys(result).forEach(key => {
+    if (result[key] && getType(result[key]) === "object") {
+      result[key] = cloneDeep(data[key], map)
+    }
+  })
+
+  return result
+}
+
+/**
+ * 如何让 (a == 1 && a == 2 && a == 3) 的值为true？
+ * 1. 利用隐式类型转换
+ * 2. 利用数据劫持(Proxy/Object.defineProperty)
+ * 3. 数组的 toString 接口默认调用数组的 join 方法，重写 join 方法
+ */
+var a = {
+  [Symbol.toPrimitive]: (function(hint){
+    let i = 1
+    return function () {
+      return i++
+    }
+  }),
+  toString() {
+    return ++this.i
+  }
+}
+
+var a = new Proxy({}, {
+  i: 1,
+  get () {
+    return () => this.i++
+  }
+})
+
+var a = [1, 2, 3]
+a.join = a.shift
 
