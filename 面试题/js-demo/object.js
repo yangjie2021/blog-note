@@ -18,3 +18,22 @@ function deepFreeze(object) {
 }
 deepFreeze(person)
 person.profession.name = "doctor" // TypeError: Cannot assign to read only property 'name' of object */
+
+
+/**
+ * 创建代理对象，通过代理对象访问属性时抛出错误
+ */
+const man = {
+	name: 'jscoder',
+	age: 22
+}
+
+const pMan = new Proxy(man, {
+	get(target, key){
+		if (key in target) {
+			return target[key]
+		} else {
+			throw new Error(`Property "${key}" does not exist`)
+		}
+	}
+})
