@@ -17,7 +17,6 @@ function _new (fn) {
   return res instanceof Object ? res : obj
 }
 
-
 /**
  * instanceOf
  */

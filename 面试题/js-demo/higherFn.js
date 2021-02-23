@@ -104,3 +104,32 @@ function throttle(fn, delay) {
     }
   }
 }
+
+/**
+ * js 沙箱
+ */
+const sandboxProxies = new WeakMap()
+function compileCode(src) {
+  src = 'with (sandbox) {' + src + '}'
+  const code = new Function('sandbox', src)
+  function has(target, key) {
+    return true
+  }
+
+  function get(target, key) {
+    if (key === Symbol.unscopables) return undefined
+    return target[key]
+  }
+  return function(sandbox) {
+    if (!sandboxProxies.has(sandbox)) {
+        const sandboxProxy = new Proxy(sandbox, { has, get })
+        sandboxProxies.set(sandbox, sandboxProxy)
+    }
+    return code(sandboxProxies.get(sandbox))
+  }
+}
+
+/* compileCode(`
+  var name = 'aaa';
+  log(name)`
+)(console) */
