@@ -60,3 +60,33 @@ jsonp({
 })
  */
 
+
+ /**
+  * 异步加载js代码
+  */
+window.onload = function(){
+  // 1.创建XMLHttpRequest对象并考虑兼容性
+  var xhr
+  if (window.XMLHttpRequest){
+    xhr = new XMLHttpRequest()
+  }
+  else {
+    xhr = new ActiveXObject('Miscrosoft.XMLHttp')
+  }
+  
+  //2.设置请求方式
+  let url = ''
+  xhr.open('get', url, true);//异步请求
+  
+  //3.发送请求
+  xhr.send()
+  
+  //4.回调函数
+  xhr.onreadyStateChange = function(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+        let script = xhr.responseText;
+        eval(script)   //异步加载script
+    }
+  }
+}
+

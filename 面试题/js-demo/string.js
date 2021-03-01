@@ -100,14 +100,14 @@ function transformStr2Hump2(str) {
   if(str == null) {
     return ''
   }
-  var strArr  =str.split('')
+  var strArr = str.split('')
   for(var i = 0; i < strArr.length; i++) {
     if(strArr[i] == '-'){
-      //删除-
+      // 删除-
       strArr.splice(i, 1)
-      //将该处改为大写
+      // 将该处改为大写
       if(i < strArr.length) {
-          strArr[i] = strArr[i].toUpperCase()
+        strArr[i] = strArr[i].toUpperCase()
       }
     }
   }
@@ -118,9 +118,9 @@ function transformStr2Hump3(str) {
   if (str == null) {
     return ''
   }
-  var reg = /-(\w)/g;//匹配字母或数字或下划线或汉字
+  var reg = /-(\w)/g
   return str.replace(reg, function($0, $1) {
-    return $1.toUpperCase();
+    return $1.toUpperCase()
   })
 }
 
@@ -132,7 +132,7 @@ function transformStr2Hump3(str) {
  * /g 匹配完第一次后，继续匹配剩下的
  */
 function toThousands1(number) {
-  return (number + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+  return (number + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
 }
 
 function toThousands2(number) {
@@ -150,7 +150,7 @@ function toThousands2(number) {
   return numberStr.replace(/(\d{3})/g, '$1,').replace(/(^0+)/g, '');
 }
 
-function(number) {
+function toThousands3(number) {
   if(!Number(number)) {
     throw TypeError('arugment must be number or can be transfer into number');
   }
@@ -160,10 +160,10 @@ function(number) {
 
   // 第一步：最高位不足3的情况，用0补上
   switch(len % 3) {
-    case 1: 
+    case 1:
       numberStr = '00' + numberStr
     break;
-    case 2: 
+    case 2:
       numberStr = '0' + numberStr
     break;
   }

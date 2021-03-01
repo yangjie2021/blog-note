@@ -37,3 +37,47 @@ const pMan = new Proxy(man, {
 		}
 	}
 })
+
+/**
+ * 根据对象字符串key获取值
+ */
+const getValue = (origin, path) => {
+  let keys = path.split(/[[\].]/g)
+    .filter(item => item.length)
+    .map(item => item.replace(/"/g, ''))
+
+  let res = origin
+  for (key of keys) {
+    res = res[key]
+    if (!res) return
+  }
+  return res
+}
+
+/* 
+const studentInfo = {
+  name: '小明',
+  age: 12,
+  favoriteFoods: [
+    'apple',
+    'dumpling'
+  ],
+  habits: [
+    { name: 'skating', 'zh-CN': '滑冰' }
+  ],
+  parents: {
+    0: {
+      relationShip: 'Dad',
+      name: '小明他爸',
+    },
+    Mom: '小明他妈'
+  }
+}
+
+console.log(getValue(studentInfo, 'name'))
+console.log(getValue(studentInfo, 'favoriteFoods[0]'))
+console.log(getValue(studentInfo, 'habits[0]["zh-CN"]'))
+console.log(getValue(studentInfo, 'habbits[1].name')) // undefined
+console.log(getValue(studentInfo, 'parents.Mom'))
+console.log(getValue(studentInfo, 'parents[0].name'))
+ */

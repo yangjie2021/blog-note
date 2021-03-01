@@ -113,37 +113,36 @@ function merge(arr, start, mid, end){
  */
 function quickSort(arr) {
   if(arr == null || arr.length <= 0){
-      return [];
+    return []
   }
-  quick(arr, 0, arr.length - 1);
+  quick(arr, 0, arr.length - 1)
 }
 
 function quick(arr, L, R){
   //递归结束条件是L >= R
-  if(L < R){
-      //随机找一个值，然后和最后一个值进行交换，将经典排序变为快速排序
-      swap(arr, L + Math.floor(Math.random() * (R - L + 1)), R);
-      //利用荷兰国旗问题获得划分的边界，返回的值是小于区域的最大索引和大于区域的最小索引，在这利用荷兰国旗问题将等于区域部分就不用动了
-      var tempArr = partition(arr, L, R, arr[R]);
-      quick(arr, L, tempArr[0]);
-      quick(arr, tempArr[1], R);
-  }
-}
-//返回值是小于区域最后的索引和大于区域的第一个索引
-function partition(arr, L, R, num){
-  var less = L - 1
-  var more = R + 1
-  var cur = L
-  while(cur < more) {
-      if(arr[cur] < num){
+  if (L < R) {
+    //随机找一个值，然后和最后一个值进行交换，将经典排序变为快速排序
+    // swap(arr, L + Math.floor(Math.random() * (R - L + 1)), R)
+    L = L + Math.floor(Math.random() * (R - L + 1))
+    let num = arr[R]
+
+    var less = L - 1
+    var more = R + 1
+    var cur = L
+    while(cur < more) {
+      if (arr[cur] < num){
         swap(arr, ++less, cur++)
       } else if(arr[cur] > num) {
         swap(arr, --more, cur)
       } else{
         cur++
       }
+    }
+
+    var tempArr = [less, more]
+    quick(arr, L, tempArr[0])
+    quick(arr, tempArr[1], R)
   }
-  return [less, more]
 }
 
 function swap(arr, i, j){
@@ -211,13 +210,6 @@ function heapify(arr, index, size) {
   }
 }
 
-function swap(arr, i, j) {
-  var temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
-
-
 /**
  * 桶排序
  */
@@ -229,8 +221,8 @@ function maxGap(arr) {
   var max = -Infinity, min = Infinity;
   //遍历一遍数组,找到最大值max和最小值min
   for(var i = 0; i < len; i++) {
-      max = max > arr[i] ? max : arr[i];
-      min = min > arr[i] ? arr[i] : min;
+    max = max > arr[i] ? max : arr[i]
+    min = min > arr[i] ? arr[i] : min
   }
 
   //若min = max,则差值为0;
@@ -274,12 +266,32 @@ function bucket(value, min, max, len) {
  */
 let sum = 0
 let wite
-for (let i = 1; i < 10; i++) {
-  let div = $('<div class="class' + i + '"></div>')
-  $('body').append(div)
-  for (let j = i; j > 0; j--) {
-    sum = j * i;
-    wite = j + 'x' + i + '=' + sum;
-    div.prepend($('<span style="padding-right:10px">' + wite + '</span>'))
+// for (let i = 1; i < 10; i++) {
+//   let div = $('<div class="class' + i + '"></div>')
+//   $('body').append(div)
+//   for (let j = i; j > 0; j--) {
+//     sum = j * i;
+//     wite = j + 'x' + i + '=' + sum;
+//     div.prepend($('<span style="padding-right:10px">' + wite + '</span>'))
+//   }
+// }
+
+/**
+ * 实现大数相加
+ */
+function add(a, b) {
+  var temp = 0
+  var res = ''
+  a = a.split('')
+  b = b.split('')
+  while (a.length || b.length || temp) {
+    temp += ~~(a.pop()) + ~~(b.pop())
+    res = (temp % 10) + res
+    temp = temp > 9
   }
+  return res
 }
+
+// const a = '123456789'
+// const b = '11111111111111111111111111'
+// console.log(add(a, b))
