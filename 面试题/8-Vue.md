@@ -242,8 +242,7 @@ props: {
         type: Boolean,
         required: true
     },
-},
-复制代码
+}
 ```
 
 ### 请说下封装 vue 组件的过程
